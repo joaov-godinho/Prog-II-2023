@@ -63,5 +63,23 @@ de gravação e leitura (get; set;)
 
 ORM: Object Relational Mapping
 
+################################################
+
+CRUD: Operações de Create, Read, Update, Delete
+Persistir: armazenar no banco de dados o estado de um objeto
+
+Interface de usuário
+> view
+> UI - user interface
+> GUI - guide user interface
+(visão do usuário)
+
+Interface
+> contrato da classe
+> especifica os métodos necessários para as classes que utilizarem tal contrato
+
+Injeção de dependencia
+
+LINQ: Language Integrated Query
 
 

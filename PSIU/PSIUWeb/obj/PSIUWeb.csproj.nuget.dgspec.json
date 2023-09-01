@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\398762\\Documents\\Programação I\\2023\\PSIU\\PSIUWeb\\PSIUWeb.csproj": {}
+    "C:\\Users\\398762\\Programação\\2023\\Prog_II_2023\\PSIU\\PSIUWeb\\PSIUWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\398762\\Documents\\Programação I\\2023\\PSIU\\PSIUWeb\\PSIUWeb.csproj": {
+    "C:\\Users\\398762\\Programação\\2023\\Prog_II_2023\\PSIU\\PSIUWeb\\PSIUWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\398762\\Documents\\Programação I\\2023\\PSIU\\PSIUWeb\\PSIUWeb.csproj",
+        "projectUniqueName": "C:\\Users\\398762\\Programação\\2023\\Prog_II_2023\\PSIU\\PSIUWeb\\PSIUWeb.csproj",
         "projectName": "PSIUWeb",
-        "projectPath": "C:\\Users\\398762\\Documents\\Programação I\\2023\\PSIU\\PSIUWeb\\PSIUWeb.csproj",
+        "projectPath": "C:\\Users\\398762\\Programação\\2023\\Prog_II_2023\\PSIU\\PSIUWeb\\PSIUWeb.csproj",
         "packagesPath": "C:\\Users\\398762\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\398762\\Documents\\Programação I\\2023\\PSIU\\PSIUWeb\\obj\\",
+        "outputPath": "C:\\Users\\398762\\Programação\\2023\\Prog_II_2023\\PSIU\\PSIUWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
