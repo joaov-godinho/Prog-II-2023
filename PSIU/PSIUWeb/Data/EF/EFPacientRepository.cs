@@ -12,6 +12,7 @@ namespace PSIUWeb.Data.EF
         {
             context = ctx;
         }
+
         public Pacient? Create(Pacient p)
         {
             try
@@ -30,23 +31,28 @@ namespace PSIUWeb.Data.EF
         public Pacient? Delete(int id)
         {
             Pacient? p = GetPacientById(id);
-            if (p != null)
+            
+            if (p == null)            
                 return null;
 
             context.Pacients?.Remove(p);
             context.SaveChanges();
 
             return p;
+            
+
         }
 
         public Pacient? GetPacientById(int id)
         {
-            Pacient? p =
+            Pacient? p = 
                 context
                     .Pacients?
                     .Where(p => p.Id == id)
                     .FirstOrDefault();
+
             return p;
+
         }
 
         public IQueryable<Pacient>? GetPacients()
