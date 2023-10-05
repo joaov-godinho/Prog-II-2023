@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PSIUWeb.Models;
 
 namespace PSIUWeb.Data
@@ -15,6 +15,7 @@ namespace PSIUWeb.Data
 
         public DbSet<Pacient>? Pacients { get; set; }
 
+        public DbSet<Psico>? Psicos { get; set; }
 
     }
 }
