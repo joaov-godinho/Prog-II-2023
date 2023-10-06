@@ -82,4 +82,11 @@ Injeção de dependencia
 
 LINQ: Language Integrated Query
 
+Modificadores de acesso: Definem o contrato da classe. Quais atributos e métodos estarão visíveis para quem e em que nível de acesso
 
+Signature: public Customer Retrive(int costumerId)
+Contract: Atributos e métodos
+Overloading: .
+		.
+Constructor: public Customer() { }
+		public Customer(int customerId) { }
