@@ -90,3 +90,8 @@ Overloading: .
 		.
 Constructor: public Customer() { }
 		public Customer(int customerId) { }
+
+Agregar: Não obrigatório
+Compor: Obrigatório
+Ambos adicionam algo 
+
