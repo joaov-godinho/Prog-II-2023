@@ -9,7 +9,7 @@ namespace PSIUWeb.Data.EF
 
         public EFCategoryRepository(AppDbContext ctx)
         {
-            context = ctx;
+            this.context = ctx;
         }
         public Category? Create(Category c)
         {
