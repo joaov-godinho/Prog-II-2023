@@ -10,8 +10,9 @@ namespace PSIUWeb.Models
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-        public int ContentId { get; set; }
-        [ForeignKey("CategoryId")]
+        
+        public int ContentId {get; set; }
+        [ForeignKey("ContentId")]
         public Content Content { get; set; }
     }
 }

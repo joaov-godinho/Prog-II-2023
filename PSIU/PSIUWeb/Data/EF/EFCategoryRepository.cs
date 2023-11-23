@@ -9,8 +9,9 @@ namespace PSIUWeb.Data.EF
 
         public EFCategoryRepository(AppDbContext ctx)
         {
-            this.context = ctx;
+            context = ctx;
         }
+
         public Category? Create(Category c)
         {
             try
@@ -37,11 +38,8 @@ namespace PSIUWeb.Data.EF
             context.SaveChanges();
 
             return c;
-        }
 
-        public IQueryable<Category>? GetCategories()
-        {
-            return context.Categories;
+
         }
 
         public Category? GetCategoryById(int id)
@@ -53,6 +51,12 @@ namespace PSIUWeb.Data.EF
                     .FirstOrDefault();
 
             return c;
+
+        }
+
+        public IQueryable<Category>? GetCategories()
+        {
+            return context.Categories;
         }
 
         public Category? Update(Category c)
@@ -71,3 +75,4 @@ namespace PSIUWeb.Data.EF
         }
     }
 }
+

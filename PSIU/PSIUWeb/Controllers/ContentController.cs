@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PSIUWeb.Data.EF;
 using PSIUWeb.Data.Interface;
 using PSIUWeb.Models;
 
@@ -10,11 +9,9 @@ namespace PSIUWeb.Controllers
     {
         private IContentRepository contentRepository;
 
-        public ContentController(
-            IContentRepository _contentRepo
-        )
+        public ContentController(IContentRepository repo)
         {
-            contentRepository = _contentRepo;
+            contentRepository = repo;
         }
 
         [HttpGet]
@@ -24,28 +21,6 @@ namespace PSIUWeb.Controllers
                 contentRepository.GetContents()
             );
         }
-
-        public IActionResult Edit(int? id)
-        {
-            return Edit(id, contentRepository);
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int? id, IContentRepository contentRepository)
-        {
-            if (id <= 0 || id == null)
-                return NotFound();
-
-            Pacient? c =
-                contentRepository.GetContentById(id.Value);
-
-            if (c == null)
-                return NotFound();
-
-            return View(c);
-
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Content content)
@@ -118,5 +93,4 @@ namespace PSIUWeb.Controllers
         }
 
     }
-
 }

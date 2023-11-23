@@ -42,6 +42,17 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
+                        <label asp-for="BirthDate" class="control-label"></label>
+                        <input asp-for="BirthDate" class="form-control"
+                               placeholder="__/__/____" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
                         <label asp-for="Crp" class="control-label"></label>
                         <input asp-for="Crp" class="form-control"
                                placeholder="CRP" />
@@ -50,7 +61,7 @@
                 </div>
             </div>
 
-<!--            <div class="row">
+            <div class="row">
                 <div class="col-12">
                     <div class="form-group">
                         <label asp-for="Endereco" class="control-label"></label>
@@ -59,7 +70,34 @@
                         <span asp-validation-for="Endereco" class="text-danger"></span>
                     </div>
                 </div>
-            </div> -->
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label asp-for="Race" class="control-label"></label>
+                        <select asp-for="Race"
+                                asp-items="Html.GetEnumSelectList<Race>()"
+                                class="form-control">
+                            <option selected="selected"
+                                    value="">
+                                Selecione a raça
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label asp-for="Liberado" class="control-label"></label>
+                        <input asp-for="Liberado" class="radio" />
+                    </div>
+                </div>
+            </div>
+
+
             <hr />
 
             <div class="form-group">

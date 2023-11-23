@@ -12,8 +12,8 @@ using PSIUWeb.Data;
 namespace PSIUWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231006005640_Content Categories")]
-    partial class ContentCategories
+    [Migration("20231119170354_MidiaEnum")]
+    partial class MidiaEnum
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -250,12 +250,9 @@ namespace PSIUWeb.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PsicoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PsicoId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
                 });
@@ -272,6 +269,10 @@ namespace PSIUWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Psico")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PsicoId")
                         .HasColumnType("int");
 
@@ -284,8 +285,6 @@ namespace PSIUWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PsicoId");
 
                     b.ToTable("Contents");
                 });
@@ -308,7 +307,29 @@ namespace PSIUWeb.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("ContentId");
+
                     b.ToTable("ContentCategories");
+                });
+
+            modelBuilder.Entity("PSIUWeb.Models.Midia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("TypeMidia")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Midias");
                 });
 
             modelBuilder.Entity("PSIUWeb.Models.Pacient", b =>
@@ -353,7 +374,13 @@ namespace PSIUWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Crp")
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Crp")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Endereco")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -364,7 +391,15 @@ namespace PSIUWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Race")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Psicos");
                 });
@@ -424,33 +459,22 @@ namespace PSIUWeb.Migrations
                 {
                     b.HasOne("PSIUWeb.Models.Category", "Parent")
                         .WithMany()
-                        .HasForeignKey("PsicoId");
+                        .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("PSIUWeb.Models.Content", b =>
-                {
-                    b.HasOne("PSIUWeb.Models.Psico", "Psico")
-                        .WithMany()
-                        .HasForeignKey("PsicoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Psico");
                 });
 
             modelBuilder.Entity("PSIUWeb.Models.ContentCategory", b =>
                 {
                     b.HasOne("PSIUWeb.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("ContentCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PSIUWeb.Models.Content", "Content")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .WithMany("ContentCategories")
+                        .HasForeignKey("ContentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -466,6 +490,25 @@ namespace PSIUWeb.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PSIUWeb.Models.Psico", b =>
+                {
+                    b.HasOne("PSIUWeb.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PSIUWeb.Models.Category", b =>
+                {
+                    b.Navigation("ContentCategories");
+                });
+
+            modelBuilder.Entity("PSIUWeb.Models.Content", b =>
+                {
+                    b.Navigation("ContentCategories");
                 });
 #pragma warning restore 612, 618
         }

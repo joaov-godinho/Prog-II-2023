@@ -5,11 +5,12 @@ namespace PSIUWeb.Data.EF
 {
     public class EFContentRepository : IContentRepository
     {
+
         private AppDbContext context;
 
-        public EFContentRepository(AppDbContext ctx)
+        public EFContentRepository(AppDbContext context)
         {
-            context = ctx;
+            this.context = context;
         }
         public Content? Create(Content c)
         {
