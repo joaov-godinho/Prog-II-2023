@@ -12,8 +12,8 @@ using PSIUWeb.Data;
 namespace PSIUWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231006001651_Psico-Content-Category-2")]
-    partial class PsicoContentCategory2
+    [Migration("20231119165123_MidiaInicial")]
+    partial class MidiaInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -250,12 +250,9 @@ namespace PSIUWeb.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PsicoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PsicoId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
                 });
@@ -272,6 +269,10 @@ namespace PSIUWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Psico")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PsicoId")
                         .HasColumnType("int");
 
@@ -285,9 +286,51 @@ namespace PSIUWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PsicoId");
-
                     b.ToTable("Contents");
+                });
+
+            modelBuilder.Entity("PSIUWeb.Models.ContentCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("ContentCategories");
+                });
+
+            modelBuilder.Entity("PSIUWeb.Models.Midia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("TipoMidia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Midias");
                 });
 
             modelBuilder.Entity("PSIUWeb.Models.Pacient", b =>
@@ -332,7 +375,13 @@ namespace PSIUWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Crp")
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Crp")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Endereco")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -343,7 +392,15 @@ namespace PSIUWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Race")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Psicos");
                 });
@@ -403,20 +460,28 @@ namespace PSIUWeb.Migrations
                 {
                     b.HasOne("PSIUWeb.Models.Category", "Parent")
                         .WithMany()
-                        .HasForeignKey("PsicoId");
+                        .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("PSIUWeb.Models.Content", b =>
+            modelBuilder.Entity("PSIUWeb.Models.ContentCategory", b =>
                 {
-                    b.HasOne("PSIUWeb.Models.Psico", "Psico")
-                        .WithMany()
-                        .HasForeignKey("PsicoId")
+                    b.HasOne("PSIUWeb.Models.Category", "Category")
+                        .WithMany("ContentCategories")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Psico");
+                    b.HasOne("PSIUWeb.Models.Content", "Content")
+                        .WithMany("ContentCategories")
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Content");
                 });
 
             modelBuilder.Entity("PSIUWeb.Models.Pacient", b =>
@@ -426,6 +491,25 @@ namespace PSIUWeb.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PSIUWeb.Models.Psico", b =>
+                {
+                    b.HasOne("PSIUWeb.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PSIUWeb.Models.Category", b =>
+                {
+                    b.Navigation("ContentCategories");
+                });
+
+            modelBuilder.Entity("PSIUWeb.Models.Content", b =>
+                {
+                    b.Navigation("ContentCategories");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,9 +7,9 @@ namespace PSIUWeb.Data.EF
     {
         private AppDbContext context;
 
-        public EFMidiaRepository(AppDbContext ctx)
+        public EFMidiaRepository(AppDbContext context)
         {
-            this.context = ctx;
+            this.context = context;
         }
         public Midia? Create(Midia m)
         {
@@ -39,11 +39,6 @@ namespace PSIUWeb.Data.EF
             return m;
         }
 
-        public IQueryable<Midia>? GetMidias()
-        {
-            return context.Midias;
-        }
-
         public Midia? GetMidiaById(int id)
         {
             Midia? m =
@@ -53,6 +48,11 @@ namespace PSIUWeb.Data.EF
                     .FirstOrDefault();
 
             return m;
+        }
+
+        public IQueryable<Midia>? GetMidias()
+        {
+            return context.Midias;
         }
 
         public Midia? Update(Midia m)

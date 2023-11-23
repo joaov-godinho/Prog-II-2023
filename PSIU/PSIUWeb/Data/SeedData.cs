@@ -48,15 +48,40 @@ namespace PSIUWeb.Data
                 context.Psicos.AddRange(
                     new Psico
                     {
-                        Name = "Fulano",
-                        Crp = "999999",
+                        Name = "Mauricio",
+                        BirthDate = new DateTime(1984, 7, 5),
+                        Race = Race.Pardo,
+                        Crp = 18098765,
+                        Endereco = "Rua Severino Paese",
                         Liberado = true
                     },
                     new Psico
                     {
-                        Name = "Ciclano",
-                        Crp = "666666",
-                        Liberado = false
+                        Name = "Marcos",
+                        BirthDate = new DateTime(1987, 2, 28),
+                        Race = Race.Pardo,
+                        Crp = 12345678,
+                        Endereco = "Rua Severino Paese",
+                        Liberado = true
+
+                    }
+                );
+
+                context.SaveChanges();
+            }
+
+            if (!context.Midias.Any())
+            {
+                context.Midias.AddRange(
+                    new Midia
+                    {
+                        Url = "teste",
+                        TypeMidia = TypeMidia.Imagem
+                    },
+                    new Midia
+                    {
+                        Url = "teste2",
+                        TypeMidia = TypeMidia.Música
                     }
                 );
 

@@ -15,15 +15,14 @@ namespace PSIUWeb.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: true),
-                    PsicoId = table.Column<int>(type: "int", nullable: true)
+                    ParentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Categories_Categories_PsicoId",
-                        column: x => x.PsicoId,
+                        name: "FK_Categories_Categories_ParentId",
+                        column: x => x.ParentId,
                         principalTable: "Categories",
                         principalColumn: "Id");
                 });
@@ -37,28 +36,18 @@ namespace PSIUWeb.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Resume = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HtmlContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PsicoId = table.Column<int>(type: "int", nullable: false)
+                    PsicoId = table.Column<int>(type: "int", nullable: false),
+                    Psico = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contents", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Contents_Psicos_PsicoId",
-                        column: x => x.PsicoId,
-                        principalTable: "Psicos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_PsicoId",
+                name: "IX_Categories_ParentId",
                 table: "Categories",
-                column: "PsicoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contents_PsicoId",
-                table: "Contents",
-                column: "PsicoId");
+                column: "ParentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

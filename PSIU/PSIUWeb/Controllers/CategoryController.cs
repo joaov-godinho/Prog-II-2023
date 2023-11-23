@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PSIUWeb.Data.EF;
 using PSIUWeb.Data.Interface;
 using PSIUWeb.Models;
 
 namespace PSIUWeb.Controllers
 {
     public class CategoryController : Controller
+
     {
         private ICategoryRepository categoryRepository;
 
@@ -22,22 +22,6 @@ namespace PSIUWeb.Controllers
                 categoryRepository.GetCategories()
             );
         }
-
-        [HttpGet]
-        public IActionResult Edit(int? id)
-        {
-            if (id <= 0 || id == null)
-                return NotFound();
-            Category? c =
-                categoryRepository.GetCategoryById(id.Value);
-
-            if (c == null)
-                return NotFound();
-
-            return View(c);
-
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Category category)

@@ -14,4 +14,5 @@ namespace PSIUWeb.Data.Interface
 
         public Category? Create(Category c);
     }
+
 }

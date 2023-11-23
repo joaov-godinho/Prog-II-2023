@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Psico>
+﻿@model IEnumerable<Midia>
 
 <section class="content">
     <div class="container-fluid">
@@ -7,12 +7,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            Listagem de Psicólogos
+                            Midias
                         </h3>
                     </div>
                     <div class="card-body">
 
-                        <a asp-controller="Psico" asp-action="Insert">
+                        <a asp-controller="Midia" asp-action="Insert">
                             Inclui novo
                         </a>
 
@@ -20,39 +20,31 @@
                             <thead>
                                 <tr>
                                     <th>@Html.DisplayNameFor(model => model.Id)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Crp)</th>
-                                    <th>@Html.DisplayNameFor(model => model.BirthDate)</th>
-                                    <th>@Html.DisplayNameFor(model =>model.Endereco) </th>
-                                    <th>@Html.DisplayNameFor(model =>model.Liberado) </th>
+                                    <th>@Html.DisplayNameFor(model => model.Url)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TypeMidia)</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var p in Model)
+                                @foreach (var m in Model)
                                 {
                                     <tr>
-                                        <td>@p.Id</td>
-                                        <td>@p.Name</td>
-                                        <td>@p.Crp</td>
-                                        <td>@p.BirthDate.ToShortDateString()</td>
-                                        <td>@p.Endereco</td>
-                                        <td>
-                                            @p.Liberado
-                                        </td>
+                                        <td>@m.Id</td>
+                                        <td>@m.Url</td>
+                                        <td>@m.TypeMidia</td>
                                         <td>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a asp-controller="Psico"
+                                                    <a asp-controller="Midia"
                                                        asp-action="Edit"
-                                                       asp-route-id="@p.Id">
+                                                       asp-route-id="@m.Id">
                                                         Editar
                                                     </a>
                                                 </div>
                                                 <div class="col-6">
-                                                    <a asp-controller="Psico"
+                                                    <a asp-controller="Midia"
                                                        asp-action="Delete"
-                                                       asp-route-id="@p.Id">
+                                                       asp-route-id="@m.Id">
                                                         Excluir
                                                     </a>
                                                 </div>

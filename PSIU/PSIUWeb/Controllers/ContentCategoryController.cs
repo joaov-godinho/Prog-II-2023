@@ -5,49 +5,32 @@ using PSIUWeb.Models;
 
 namespace PSIUWeb.Controllers
 {
-    public class MidiaController : Controller
+    public class ContentCategoryController : Controller
     {
-        private IMidiaRepository midiaRepository;
+        private IContentCategoryRepository contentCategoryRepository;
 
-        public MidiaController(IMidiaRepository repo)
+        public ContentCategoryController(IContentCategoryRepository repo)
         {
-            midiaRepository = repo;
+            contentCategoryRepository = repo;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
             return View(
-                midiaRepository.GetMidias()
+                contentCategoryRepository.GetContentCategories()
             );
         }
-
-        [HttpGet]
-        public IActionResult Edit(int? id)
-        {
-            if (id <= 0 || id == null)
-                return NotFound();
-
-            Midia? m =
-                midiaRepository.GetMidiaById(id.Value);
-
-            if (m == null)
-                return NotFound();
-
-            return View(m);
-
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Midia midia)
+        public IActionResult Edit(ContentCategory contentCategory)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    midiaRepository.Update(midia);
-                    return View("Index", midiaRepository.GetMidias());
+                    contentCategoryRepository.Update(contentCategory);
+                    return View("Index", contentCategoryRepository.GetContentCategories());
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -63,13 +46,13 @@ namespace PSIUWeb.Controllers
             if (id == null)
                 return NotFound();
 
-            Midia? m =
-                midiaRepository.GetMidiaById(id.Value);
+            ContentCategory? cc =
+                contentCategoryRepository.GetContentCategoryById(id.Value);
 
-            if (m == null)
+            if (cc == null)
                 return NotFound();
 
-            return View(m);
+            return View(cc);
         }
 
         [HttpPost]
@@ -79,7 +62,7 @@ namespace PSIUWeb.Controllers
             if (id == null || id == 0)
                 return NotFound();
 
-            midiaRepository.Delete(id);
+            contentCategoryRepository.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }
@@ -91,15 +74,15 @@ namespace PSIUWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Insert(Midia m)
+        public IActionResult Insert(ContentCategory cc)
         {
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    midiaRepository.Create(m);
-                    return View("Index", midiaRepository.GetMidias());
+                    contentCategoryRepository.Create(cc);
+                    return View("Index", contentCategoryRepository.GetContentCategories());
                 }
                 catch (Exception)
                 {

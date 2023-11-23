@@ -4,7 +4,7 @@
 
 namespace PSIUWeb.Migrations
 {
-    public partial class ContentCategories : Migration
+    public partial class ContentCategory : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,8 +27,8 @@ namespace PSIUWeb.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ContentCategories_Contents_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_ContentCategories_Contents_ContentId",
+                        column: x => x.ContentId,
                         principalTable: "Contents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -38,6 +38,11 @@ namespace PSIUWeb.Migrations
                 name: "IX_ContentCategories_CategoryId",
                 table: "ContentCategories",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContentCategories_ContentId",
+                table: "ContentCategories",
+                column: "ContentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
